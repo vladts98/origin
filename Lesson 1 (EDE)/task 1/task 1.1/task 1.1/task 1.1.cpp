@@ -23,6 +23,7 @@ bool open_file(const std::string& file_name, int& n_1, int*& arr_1, int& n_2, in
 	}
 	read_file(fin, n_1, arr_1, n_2, arr_2);
 	fin.close();
+	return true;
 }
 
 void write_file(const std::string& file_name, int& n_1, int*& arr_1, int& n_2, int*& arr_2) {
