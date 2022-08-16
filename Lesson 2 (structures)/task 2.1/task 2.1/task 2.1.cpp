@@ -1,45 +1,103 @@
 ﻿#include <iostream>
 
-void print_month(int month_number) {
+enum month {
+	January = 1,
+	February,
+	March,
+	April,
+	May	,
+	June,
+	July,
+	August,
+	September,
+	October,
+	November,
+	December
+};
+
+void print_monthV1(int month_number) {
+
 	switch (month_number) {
-	case 1:
+	case January: // наводя на January он пишет "month::January = 1" и получается даже без static_cast все работет.
 		std::cout << "Январь";
 		break;
-	case 2:
+	case February:
 		std::cout << "Февраль";
 		break;
-	case 3:
+	case March:
 		std::cout << "Март";
 		break;
-	case 4:
+	case April:
 		std::cout << "Апрель";
 		break;
-	case 5:
+	case May:
 		std::cout << "Май";
 		break;
-	case 6:
+	case June:
 		std::cout << "Июнь";
 		break;
-	case 7:
+	case July:
 		std::cout << "Июль";
 		break;
-	case 8:
+	case August:
 		std::cout << "Август";
 		break;
-	case 9:
+	case September:
 		std::cout << "Сентябрь";
 		break;
-	case 10:
+	case October:
 		std::cout << "Октябрь";
 		break;
-	case 11:
+	case November:
 		std::cout << "Ноябрь";
 		break;
-	case 12:
+	case December:
 		std::cout << "Декабрь";
 		break;
 	}
+	std::cout << std::endl;
+}
 
+oid print_monthV2(int month_number) {
+
+	switch (month_number) {
+	case January: // наводя на January он пишет "month::January = 1" и получается даже без static_cast все работет.
+		std::cout << "Январь";
+		break;
+	case February:
+		std::cout << "Февраль";
+		break;
+	case March:
+		std::cout << "Март";
+		break;
+	case April:
+		std::cout << "Апрель";
+		break;
+	case May:
+		std::cout << "Май";
+		break;
+	case June:
+		std::cout << "Июнь";
+		break;
+	case July:
+		std::cout << "Июль";
+		break;
+	case August:
+		std::cout << "Август";
+		break;
+	case September:
+		std::cout << "Сентябрь";
+		break;
+	case October:
+		std::cout << "Октябрь";
+		break;
+	case November:
+		std::cout << "Ноябрь";
+		break;
+	case December:
+		std::cout << "Декабрь";
+		break;
+	}
 	std::cout << std::endl;
 }
 
@@ -51,7 +109,7 @@ int main()
 		std::cout << "Введите номер месяца: ";
 		std::cin >> month_number;
 		if (month_number > 0 && month_number < 13) {
-			print_month(month_number);
+			print_monthV2(month_number);
 		}
 		else if (month_number == 0) {
 			break;

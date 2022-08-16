@@ -30,19 +30,18 @@ void write_file(const std::string& file_name, int& n_1, int*& arr_1, int& n_2, i
 	std::ofstream fout(file_name);
 	if (fout.is_open()) {
 		fout << n_2 << std::endl;
-		for (int i = 0; i < n_2; ++i) {
+		fout << arr_2[n_2 - 1] << ' ';
+		for (int i = 0; i < n_2 - 1; ++i) {
 			fout << arr_2[i];
 			if (i < n_2 - 1) {
 				fout << ' ';
 			}
 		}
 		fout << std::endl << n_1 << std::endl;
-		for (int i = 0; i < n_1; ++i) {
-			fout << arr_1[i];
-			if (i < n_1 - 1) {
-				fout << ' ';
-			}
+		for (int i = 1; i < n_1; ++i) {
+			fout << arr_1[i] << ' ';
 		}
+		fout << arr_1[0];
 		fout.close();
 	}
 	else {
