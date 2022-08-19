@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 
-enum month {
+enum class month {
 	January = 1,
 	February,
 	March,
@@ -15,86 +15,42 @@ enum month {
 	December
 };
 
-void print_monthV1(int month_number) {
-
-	switch (month_number) {
-	case January: // наводя на January он пишет "month::January = 1" и получается даже без static_cast все работет.
+void print_monthV2(int month_number) {
+	switch (static_cast<month>(month_number)) {
+	case month::January:
 		std::cout << "Январь";
 		break;
-	case February:
+	case month::February:
 		std::cout << "Февраль";
 		break;
-	case March:
+	case month::March:
 		std::cout << "Март";
 		break;
-	case April:
+	case month::April:
 		std::cout << "Апрель";
 		break;
-	case May:
+	case month::May:
 		std::cout << "Май";
 		break;
-	case June:
+	case month::June:
 		std::cout << "Июнь";
 		break;
-	case July:
+	case month::July:
 		std::cout << "Июль";
 		break;
-	case August:
+	case month::August:
 		std::cout << "Август";
 		break;
-	case September:
+	case month::September:
 		std::cout << "Сентябрь";
 		break;
-	case October:
+	case month::October:
 		std::cout << "Октябрь";
 		break;
-	case November:
+	case month::November:
 		std::cout << "Ноябрь";
 		break;
-	case December:
-		std::cout << "Декабрь";
-		break;
-	}
-	std::cout << std::endl;
-}
-
-oid print_monthV2(int month_number) {
-
-	switch (month_number) {
-	case January: // наводя на January он пишет "month::January = 1" и получается даже без static_cast все работет.
-		std::cout << "Январь";
-		break;
-	case February:
-		std::cout << "Февраль";
-		break;
-	case March:
-		std::cout << "Март";
-		break;
-	case April:
-		std::cout << "Апрель";
-		break;
-	case May:
-		std::cout << "Май";
-		break;
-	case June:
-		std::cout << "Июнь";
-		break;
-	case July:
-		std::cout << "Июль";
-		break;
-	case August:
-		std::cout << "Август";
-		break;
-	case September:
-		std::cout << "Сентябрь";
-		break;
-	case October:
-		std::cout << "Октябрь";
-		break;
-	case November:
-		std::cout << "Ноябрь";
-		break;
-	case December:
+	case month::December:
 		std::cout << "Декабрь";
 		break;
 	}
