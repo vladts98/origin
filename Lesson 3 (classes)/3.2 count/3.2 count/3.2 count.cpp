@@ -4,48 +4,54 @@
 class Counter {
 public:
     Counter() {
-        std::cout << "Вы хотите указать начальное значение счётчика? Введите да или нет: ";
-        std::string answer;
-        std::cin >> answer;
-        if (answer == "нет") {
-        } else if (answer == "да") {
-            std::cout << "Введите начальное значение счётчика: ";
-            std::cin >> count;
-        }
     }
-    bool make(std::string& pull) {
-        if (pull == "+") {
-            count++;
-            return true;
-        } else if (pull == "-") {
-            count--;
-            return true;
-        }
-        else if (pull == "=") {
-            std::cout << count << std::endl;
-        }
-        else if (pull == "x" || pull == "х") {
-            std::cout << "До свидания! ";
-            return false;
-        }
-        else {
-            std::cout << "bad";
-            return false;
-        }
+    Counter(int& count) {
+        this->count = count;
+    }
+    void plus() {
+        count++;
+    }
+    void minus() {
+        count--;
+    }
+    void view() {
+        std::cout << count <<std::endl;
     }
 
 private:
     int count = 1;
-    
 };
 int main()
 {
     SetConsoleCP(1251);
-    SetConsoleOutputCP(1251); 
-    Counter c;
+    SetConsoleOutputCP(1251);
+
+    std::cout << "Вы хотите указать начальное значение счётчика? Введите да или нет: ";
+    std::string answer;
+    std::cin >> answer;
+
+    int count = 1;
+    if (answer == "да") {
+        std::cout << "Введите начальное значение счётчика: ";
+        std::cin >> count;
+    }
+    else if (answer == "нет") {
+    }
+    Counter c(count);
+
     std::string pull;
     do {
         std::cout << "Введите команду ('+', '-', '=' или 'x'): ";
         std::cin >> pull;
-    } while (c.make(pull));
+        if (pull == "+") {
+            c.plus();
+        }
+        else if (pull == "-") {
+            c.minus();
+        }
+        else if (pull == "=") {
+            c.view();
+        }
+    } while (pull != "х");
+    std::cout << "До свидания! ";
 }
