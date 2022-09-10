@@ -14,13 +14,13 @@ public:
     void minus() {
         count--;
     }
-    void view() {
-        std::cout << count <<std::endl;
+    int view() {
+        return count;
     }
-
 private:
     int count = 1;
 };
+
 int main()
 {
     SetConsoleCP(1251);
@@ -50,7 +50,7 @@ int main()
             c.minus();
         }
         else if (pull == "=") {
-            c.view();
+            std::cout << c.view() << std::endl;
         }
     } while (pull != "х");
     std::cout << "До свидания! ";
