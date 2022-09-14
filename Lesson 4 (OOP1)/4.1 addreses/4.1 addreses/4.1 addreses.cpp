@@ -6,6 +6,10 @@
 class addres {
 public:
 	addres() {
+		city = "";
+		street = "";
+		building = 0;
+		flat = 0;
 	}
 
 	void set_city(std::string city) {
@@ -20,19 +24,6 @@ public:
 	void set_flat(int flat) {
 		this->flat = flat;
 	}
-
-	/*std::string get_city() {
-		return city;
-	}
-	std::string get_street() {
-		return street;
-	}
-	int get_building() {
-		return building;
-	}
-	int get_flat() {
-		return flat;
-	}*/
 
 	std::string get_addres() {
 		return city + ", " + street + ", " + std::to_string(building) + ", " + std::to_string(flat);
@@ -66,7 +57,6 @@ void out_file(std::ofstream& file, const int size, addres* a) {
 		if (i > 0) {
 			file << std::endl;
 		}
-		//file << a[i].get_city() << ", " << a[i].get_street() << ", " << a[i].get_building() << ", " << a[i].get_flat() << std::endl;
 	}
 }
 

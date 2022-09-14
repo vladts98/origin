@@ -21,28 +21,15 @@ public:
 		this->flat = flat;
 	}
 
-	std::string get_city() {
-		return city;
-	}
-	/*std::string get_street() {
-		return street;
-	}
-	int get_building() {
-		return building;
-	}
-	int get_flat() {
-		return flat;
-	}*/
-
 	std::string get_addres() {
 		return city + ", " + street + ", " + std::to_string(building) + ", " + std::to_string(flat);
 	}
 
 private:
-	std::string city;
-	std::string street;
-	int building;
-	int flat;
+	std::string city = "";
+	std::string street = "";
+	int building = 0;
+	int flat = 0;
 };
 
 void read_file(std::ifstream& file, const int size, addres* a) {
@@ -61,7 +48,7 @@ void read_file(std::ifstream& file, const int size, addres* a) {
 
 void sort_addres(const int size, addres* a) {
 	for (int i = 0; i < size-1; ++i) {
-		if ((a[i].get_city()) > (a[i+1].get_city())) {
+		if ((a[i].get_addres()) > (a[i+1].get_addres())) {
 			std::swap(a[i], a[i + 1]);
 			i = 0;
 		}
@@ -75,7 +62,6 @@ void out_file(std::ofstream& file, const int size, addres* a) {
 		if (i <size - 1) {
 			file << std::endl;
 		}
-		//file << a[i].get_city() << ", " << a[i].get_street() << ", " << a[i].get_building() << ", " << a[i].get_flat() << std::endl;
 	}
 }
 
@@ -97,7 +83,6 @@ int main()
 	fin.close(); // закрываю
 
 	sort_addres(size, a);
-
 	std::ofstream fout("out.txt"); // открыли файл или создали
 	if (!fout.is_open()) {
 		std::cout << "Not open2.";
