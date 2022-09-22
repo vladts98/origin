@@ -8,6 +8,8 @@ public:
 	Figure() : Figure(0) {
 		this->name = "Фигура";
 	}
+	Figure(const Figure& f) = delete;
+	void operator=(const Figure& f) = delete;
 	int get_sides_count() {
 		return sides_count;
 	}
@@ -48,13 +50,15 @@ protected:
 class Triangle : public Figure {
 public:
 	Triangle() : Figure(3) {
+	}
+	Triangle(float angle0, float angle1, float angle2, float lenth0, float lenth1, float lenth2) : Figure(3) {
 		this->name = "Треугольник";
-		angle[2] = 50;
-		angle[1] = 30;
-		angle[0] = 60;
-		lenth[0] = 50;
-		lenth[1] = 10;
-		lenth[2] = 5;
+		angle[0] = angle0;
+		angle[1] = angle1;
+		angle[2] = angle2;
+		lenth[0] = lenth0;
+		lenth[1] = lenth1;
+		lenth[2] = lenth2;
 	}
 	bool check() override {
 		float summ = 0;
@@ -73,24 +77,21 @@ public:
 
 class right_Triangle : public Triangle {
 public:
-	right_Triangle() : Triangle() {
+	right_Triangle(float angle0, float lenth0, float lenth1, float lenth2) : Triangle() {
 		this->name = "Прямоугольный треугольник";
 		angle[2] = 90;
-		angle[1] = 30;
-		angle[0] = 180 - angle[2] - angle[1];
-		lenth[1] = 50;
-		lenth[2] = 10;
-		lenth[0] = 5;
+		angle[0] = angle0;
+		angle[1] = 180 - angle[2] - angle[1];
+		lenth[1] = lenth0;
+		lenth[2] = lenth1;
+		lenth[0] = lenth2;
 	}
 };
 
 class isosceles_Triangle : public Triangle {
 public:
-	isosceles_Triangle() : isosceles_Triangle(10, 40) {  // задается длина основания и угол вершины
+	isosceles_Triangle(float a, float l) : Triangle() {  // задается длина основания и угол вершины
 		this->name = "Равнобедренный треугольник";
-	}
-protected:
-	isosceles_Triangle(float l, float a = 60) : Triangle() {
 		angle[2] = a;
 		angle[1] = (180 - angle[2]) / 2;
 		angle[0] = angle[1];
@@ -103,8 +104,9 @@ protected:
 
 class equilateral_Triangle : public isosceles_Triangle {
 public:
-	equilateral_Triangle() : isosceles_Triangle(10) {  //задается только сторона, угол автоматически 60 градусов
+	equilateral_Triangle(float l) : isosceles_Triangle(60, l) {  //задается только сторона, угол автоматически 60 градусов
 		this->name = "Равносторонний треугольник";
+
 		lenth[1] = lenth[2];
 		lenth[0] = lenth[2];
 	}
@@ -113,8 +115,18 @@ public:
 class Quadrangle : public Figure {
 public:
 	Quadrangle() : Figure(4) {
+	}
+	Quadrangle(float* a, float* l) : Figure(4) {
 		this->name = "Четырехугольник";
+		lenth[0] = l[0];
+		lenth[1] = l[1];
+		lenth[2] = l[2];
+		lenth[3] = l[3];
 
+		angle[0] = a[0];
+		angle[1] = a[1];
+		angle[2] = a[2];
+		angle[3] = a[3];
 	}
 	bool check() override {
 		float summ_angle = 0;
@@ -157,37 +169,37 @@ protected:
 
 class rectangle : public Quadrangle {
 public:
-	rectangle() : Quadrangle() {
+	rectangle(float a, float b) : Quadrangle() {
 		name = "Прямоугольник";
 		angle_90();
-		lenth_pair(10, 20);
+		lenth_pair(a, b);
 	}
 };
 
 class square : public Quadrangle {
 public:
-	square() : Quadrangle() {
+	square(float a) : Quadrangle() {
 		name = "Квадрат";
 		angle_90();
-		lenth_q(10);
+		lenth_q(a);
 	}
 };
 
 class parallelogram : public Quadrangle {
 public:
-	parallelogram() : Quadrangle() {
+	parallelogram(float a, float l1, float l2) : Quadrangle() {
 		name = "Параллелограмм";
-		angle_pair(50);
-		lenth_pair(10, 20);
+		angle_pair(a);
+		lenth_pair(l1, l2);
 	}
 };
 
 class rhomb :public Quadrangle {
 public:
-	rhomb() : Quadrangle() {
+	rhomb(float a, float l) : Quadrangle() {
 		name = "Ромб";
-		angle_pair(50);
-		lenth_q(10);
+		angle_pair(a);
+		lenth_q(l);
 	}
 };
 
@@ -239,30 +251,32 @@ int main()
 	Figure f;
 	print_info(&f);
 
-	Triangle t;
+	Triangle t(20, 55, 80, 10, 32, 40);
 	print_info(&t);
 
-	right_Triangle rt;
+	right_Triangle rt(20, 10, 5, 4);
 	print_info(&rt);
 
-	isosceles_Triangle it;
+	isosceles_Triangle it(30, 5);
 	print_info(&it);
 
-	equilateral_Triangle et;
+	equilateral_Triangle et(5);
 	print_info(&et);
 
-	Quadrangle q;
+	float a[4] = { 10, 20, 30, 40 };
+	float b[4] = { 1, 2, 3, 4 };
+	Quadrangle q(a, b);
 	print_info(&q);
 
-	rectangle r;
+	rectangle r(50, 40);
 	print_info(&r);
 
-	square s;
+	square s(5);
 	print_info(&s);
 
-	parallelogram p;
+	parallelogram p(60, 20, 10);
 	print_info(&p);
 
-	rhomb rh;
+	rhomb rh(50, 10);
 	print_info(&rh);
 }
