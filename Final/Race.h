@@ -1,14 +1,26 @@
 #pragma once
-#include <iostream> 
 #include "Vehicles.h"
+#include "Race_info.h"
 
 class Race {
 public:
-	unsigned int type = 0;
-	unsigned int lenth = 0;
-	unsigned int cars = 0;
-	const std::string race_1 = "Гонка для наземного транспорта";
-	const std::string race_2 = "Гонка для воздушного транспорта";
-	const std::string race_3 = "Гонка для наземного и воздушного траспорта";
-	void info(Vehicle* all_cars);  // , const int* size);
+	Race();
+	~Race();
+
+	Race_info Race_info;
+	void Create_race();
+
+	int get_all_v();
+	int get_reg_v();
+	std::string get_v_name(const int n);
+	float get_time(const int i);
+
+	void print_all_info();
+
+	int reg(unsigned int n);
+	void start();
+private:
+	Vehicle *Vehicles = nullptr;
+	const int all_v = 7;	//все доступные машины
+	int reg_v;				// зарегестрированные машины
 };

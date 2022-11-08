@@ -1,37 +1,33 @@
 #include <iostream>
 #include <Windows.h>
-#include "CreateVeachels.h"
-#include "Registration.h"
+#include "Race.h"
 
 int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	int reapeat = 0;
 	do {
-		Race race;
+		Race Race;
 		std::cout << "Добро пожаловать в гоночный симулятр!" << std::endl
-			<< "1. " << race.race_1 << std::endl
-			<< "2. " << race.race_2 << std::endl
-			<< "3. " << race.race_3 << std::endl
+			<< "1. " << Race.Race_info.race_1 << std::endl
+			<< "2. " << Race.Race_info.race_2 << std::endl
+			<< "3. " << Race.Race_info.race_3 << std::endl
 			<< "Выбирите тип гонки: ";
-		std::cin >> race.type;
-		if (!((race.type == 1) || (race.type == 2) || (race.type == 3)))
+		std::cin >> Race.Race_info.type;
+		if (!((Race.Race_info.type == 1) || (Race.Race_info.type == 2) || (Race.Race_info.type == 3)))
 			return 1;
 
 		std::cout << "Укажите длину дистанции (должна быть положительна): ";
-		std::cin >> race.lenth;
-
-		All_vehicles All_vehicles = nullptr;
-		CreateVeachels(all_cars);
-		const int size = sizeof(all_cars) / sizeof(all_cars[0]);
+		std::cin >> Race.Race_info.lenth;
+		Race.Create_race();
 
 		int action = 0;
 		while (action != 2) {
-			if (race.cars < 2) {
+			if (Race.get_reg_v() < 2) {
 				std::cout << "Должно быть зарегистрировано хотя бы 2 транспортных средства" << std::endl;
 			}
 			std::cout << "1. Зарегистрировать транспорт" << std::endl;
-			if (race.cars > 1) {
+			if (Race.get_reg_v() > 1) {
 				std::cout << "2. Начать гонку" << std::endl;
 			}
 			std::cout << "Выбирите действие: ";
@@ -42,41 +38,48 @@ int main() {
 			{
 				int action_regist = 1;
 				do {
-					//std::cout << std::endl;
-					race.info(all_cars);
-					for (int i = 0; i < size; ++i) {
-						std::cout << i + 1 << " " << all_cars[i].get_name() << std::endl;
-					}
+					Race.print_all_info();
 					std::cout << "Выбирите транспорт или 0 для окнчания процесса регистрации: ";
 					std::cin >> action_regist;
-					if (action_regist > size) {
-						std::cout << "Неправилно ТС" << std::endl;
-						action_regist = 0;
-					}
-					else {
-						Registration(&all_cars[action_regist - 1], &race);
-					}
+					switch (Race.reg(action_regist)){
+					case 0: 
+						std::cout << Race.get_v_name(action_regist-1) << " успешно зарегестрировано!" << std::endl;
+						break;
+					case 1:
+						std::cout << "Такого ТС НЕТ" << std::endl;
+						break;
+					case 2:
+						std::cout << Race.get_v_name(action_regist-1) << " уже зарагестрировано" << std::endl;
+						break;
+					case 3:
+						std::cout << Race.get_v_name(action_regist-1) << " не может быть зарегестрирован" << std::endl;
+						break;
+					case 4:
+						break;
+					};
 				} while (action_regist);
 			}
 			break; //case 1
 			case 2:
-				if (race.cars > 1) {
-					std::cout << "star_race();" << std::endl;
-					//print_result();
+				if (Race.get_reg_v() > 1) {
+					Race.start();
+					for (int i = 0; i < Race.get_reg_v(); i++) {
+						std::cout << i + 1 << ". " << Race.get_v_name(i) << ". Время: " << Race.get_time(i) << std::endl;
+						}
 					break;
 				}
-				action = 0;
+				//action = 0;
 				break;
 			default:
 				action = 0;
 				break;
 			}
 		}
-		while ((reapeat == 1) || (reapeat == 2)) {
+		do {
 			std::cout << std::endl << "1. Провести еще одну гонку" << std::endl
 				<< "2. Выйти" << std::endl;
 			std::cout << "Выбирите действие: ";
 			std::cin >> reapeat;
-		}
+		} while ((!(reapeat == 1)) || (!(reapeat == 2)));
 	} while (reapeat == 1);
 }

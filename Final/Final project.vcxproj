@@ -98,17 +98,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CreateVeachels.cpp" />
+    <ClCompile Include="Race.cpp" />
     <ClCompile Include="Vehicles.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Race.cpp" />
-    <ClCompile Include="Registration.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CreateVeachels.h" />
-    <ClInclude Include="Vehicles.h" />
-    <ClInclude Include="Registration.h" />
     <ClInclude Include="Race.h" />
+    <ClInclude Include="Vehicles.h" />
+    <ClInclude Include="Race_info.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

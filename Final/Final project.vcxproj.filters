@@ -18,30 +18,21 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Race.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Vehicles.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Registration.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CreateVeachels.cpp">
+    <ClCompile Include="Race.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Race.h">
+    <ClInclude Include="Race_info.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vehicles.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Registration.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CreateVeachels.h">
+    <ClInclude Include="Race.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

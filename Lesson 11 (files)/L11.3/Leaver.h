@@ -1,13 +1,13 @@
 #pragma once
 #include <iostream> 
 
-#ifdef LEAVER_EXPORTS
-#define LEAVERLIBRARY_API __declspec(dllexport)
+#ifdef Leaver_EXPORTS
+#define LEAVERLIBRARYAPI __declspec(dllexport)
 #else
-#define LEAVERLIBRARY_API __declspec(dllimport)
+#define LEAVERLIBRARYAPI __declspec(dllimport)
 #endif
 
 class Leaver {
 public:
-	LEAVERLIBRARY_API void leave(std::string name);
+	LEAVERLIBRARYAPI void leave(std::string name);
 };
