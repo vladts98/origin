@@ -8,18 +8,18 @@ int main() {
 	int reapeat = 0;
 	do {
 		Race Race;
-		std::cout << "Добро пожаловать в гоночный симулятр!" << std::endl
-			<< "1. " << Race.Race_info.race_1 << std::endl
-			<< "2. " << Race.Race_info.race_2 << std::endl
-			<< "3. " << Race.Race_info.race_3 << std::endl
-			<< "Выбирите тип гонки: ";
-		std::cin >> Race.Race_info.type;
-		if (!((Race.Race_info.type == 1) || (Race.Race_info.type == 2) || (Race.Race_info.type == 3)))
-			return 1;
+		std::cout << "Добро пожаловать в гоночный симулятр!" << std::endl;
+		for (int i = 0; i < Race.max_type; ++i) {
+			std::cout << i + 1 << " " << Race.type_name[i] << std::endl;
+		}
+		std::cout << "Выбирите тип гонки: ";
+		int type;
+		std::cin >> type;
 
 		std::cout << "Укажите длину дистанции (должна быть положительна): ";
-		std::cin >> Race.Race_info.lenth;
-		Race.Create_race();
+		float lenth;
+		std::cin >> lenth;
+		Race.Create_race(type, lenth);
 
 		int action = 0;
 		while (action != 2) {
@@ -38,37 +38,40 @@ int main() {
 			{
 				int action_regist = 1;
 				do {
+					std::cout << std::endl;
 					Race.print_all_info();
 					std::cout << "Выбирите транспорт или 0 для окнчания процесса регистрации: ";
 					std::cin >> action_regist;
-					switch (Race.reg(action_regist)){
-					case 0: 
-						std::cout << Race.get_v_name(action_regist-1) << " успешно зарегестрировано!" << std::endl;
+					switch (Race.reg(action_regist)) {
+					case 0:
+						std::cout << Race.get_v_name(action_regist - 1) << " успешно зарегестрирован!" << std::endl;
 						break;
 					case 1:
 						std::cout << "Такого ТС НЕТ" << std::endl;
 						break;
 					case 2:
-						std::cout << Race.get_v_name(action_regist-1) << " уже зарагестрировано" << std::endl;
+						std::cout << Race.get_v_name(action_regist - 1) << " уже зарагестрирован" << std::endl;
 						break;
 					case 3:
-						std::cout << Race.get_v_name(action_regist-1) << " не может быть зарегестрирован" << std::endl;
+						std::cout << Race.get_v_name(action_regist - 1) << " не может быть зарегестрирован" << std::endl;
 						break;
 					case 4:
 						break;
 					};
 				} while (action_regist);
 			}
-			break; //case 1
+			break;
 			case 2:
 				if (Race.get_reg_v() > 1) {
 					Race.start();
-					for (int i = 0; i < Race.get_reg_v(); i++) {
-						std::cout << i + 1 << ". " << Race.get_v_name(i) << ". Время: " << Race.get_time(i) << std::endl;
+					for (int i = Race.get_all_v() - 1, n = 1; i > -1; --i) {
+						if (Race.get_v_status(i)) {
+							std::cout << n << ". " << Race.get_v_name(i) << ". Время: " << Race.get_time(i) << std::endl;
+							++n;
 						}
+					}
 					break;
 				}
-				//action = 0;
 				break;
 			default:
 				action = 0;
@@ -80,6 +83,6 @@ int main() {
 				<< "2. Выйти" << std::endl;
 			std::cout << "Выбирите действие: ";
 			std::cin >> reapeat;
-		} while ((!(reapeat == 1)) || (!(reapeat == 2)));
+		} while (!((reapeat == 1) || (reapeat == 2)));
 	} while (reapeat == 1);
 }

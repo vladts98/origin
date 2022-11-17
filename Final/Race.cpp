@@ -1,28 +1,34 @@
 #include "Race.h"
 
 Race::Race() {
+	this->type = "";
+	this->type_number = 0;
+	
+	this->lenth = 0;
 	this->reg_v = 0;
 }
 
 Race::~Race() {
 	delete[] this->Vehicles;
-	/*if (all_v > 1) {
-		delete[] Vehicles;
-	}
-	else {
-		delete Vehicles;
-	}*/
 }
 
-void Race::Create_race() {
-	this->Vehicles = new Vehicle[this->all_v]();
-	Vehicles[0] = Camal(this->Race_info.lenth);
-	Vehicles[1] = Camal_fast(this->Race_info.lenth);
-	Vehicles[2] = Kent(this->Race_info.lenth);
-	Vehicles[3] = Boots_fast(this->Race_info.lenth);
-	Vehicles[4] = Magic_carpet(this->Race_info.lenth);
-	Vehicles[5] = Eagle(this->Race_info.lenth);
-	Vehicles[6] = Broom(this->Race_info.lenth);
+int Race::Create_race(const int type, const float lenth) {
+	if (!set_type(type)) {
+		return 1;
+	}
+	if (!set_lenth(lenth)) {
+		return 2;
+	}
+
+	this->Vehicles = new Vehicle[this->all_v];
+	Vehicles[0] = Boots_fast(this->lenth, this->type);
+	Vehicles[1] = Broom(this->lenth, this->type);
+	Vehicles[2] = Camal(this->lenth, this->type);
+	Vehicles[3] = Kent(this->lenth, this->type);
+	Vehicles[4] = Eagle(this->lenth, this->type);
+	Vehicles[5] = Camal_fast(this->lenth, this->type);
+	Vehicles[6] = Magic_carpet(this->lenth, this->type);
+	return 0;
 }
 
 int Race::get_all_v() {
@@ -38,19 +44,9 @@ float Race::get_time(const int i) {
 }
 
 void Race::print_all_info() {
-	switch (this->Race_info.type) {
-	case 1:
-		std::cout << this->Race_info.race_1;
-		break;
-	case 2:
-		std::cout << this->Race_info.race_2;
-		break;
-	case 3:
-		std::cout << this->Race_info.race_3;
-		break;
-	}
-	std::cout << ". Расстояние: " << this->Race_info.lenth << std::endl;
-	if (this->reg_v> 0) {
+	std::cout << this->type_name[this->type_number] << " ";
+	std::cout << ". Расстояние: " << this->lenth << std::endl;
+	if (this->reg_v > 0) {
 		std::cout << "Зарегистрированные транспортные средства: ";
 		for (int i = 0, reg_v = 0; reg_v < this->reg_v; ++i) {
 			if (this->Vehicles[i].get_status() == true) {
@@ -70,14 +66,19 @@ void Race::print_all_info() {
 	}
 }
 
-std::string Race::get_v_name(const int n) {
-	return this->Vehicles[n].get_name();
+std::string Race::get_v_name(const int i) {
+	return this->Vehicles[i].get_name();
 }
 
-int Race::reg(unsigned int n) {
+bool Race::get_v_status(const int i) {
+	return (Vehicles[i].get_status());
+}
+
+int Race::reg(int n) {
 	if (n == 0) {
 		return 4;					// конец регистрации
-	} else if (n > this->all_v) {
+	}
+	else if (this->all_v < n) {
 		return 1;					// ТС не существует
 	}
 	else {
@@ -86,7 +87,7 @@ int Race::reg(unsigned int n) {
 			return 2;				// уже зарегестрировали
 		}
 		else {
-			this->Vehicles[n].change_status(this->Race_info.type);
+			this->Vehicles[n].change_status(this->type);
 			if (this->Vehicles[n].get_status()) {
 				this->reg_v++;		// зарегестрировали
 				return 0;
@@ -99,11 +100,35 @@ int Race::reg(unsigned int n) {
 }
 
 void Race::start() {
-	const int L = this->Race_info.lenth;
-	for (int i = 0; i < this->all_v - 2; i++) {
-		if (this->Vehicles[i].get_time() < this->Vehicles[i].get_time()) {
-			//std::swap(this->Vehicles[i], this->Vehicles[i+1]);
-			//i = 0;
+	for (int i = 0; i < this->all_v - 1; ++i) {
+		if (this->Vehicles[i].get_time() < this->Vehicles[i + 1].get_time()) {
+			std::swap(this->Vehicles[i], this->Vehicles[i + 1]);
+			i = -1;
 		}
 	}
+}
+
+bool Race::set_type(const int type) {
+	switch (type) {
+	case 1:
+		this->type = "Ground";
+		break;
+	case 2:
+		this->type = "Air";
+		break;
+	case 3:
+		this->type = "Ground & Air";
+		break;
+	default:
+		return false;
+	}
+	this->type_number = type - 1;
+	return true;
+}
+
+bool Race::set_lenth(const float lenth) {
+	if (lenth <= 0)
+		return false;
+	this->lenth = lenth;
+	return true;
 }

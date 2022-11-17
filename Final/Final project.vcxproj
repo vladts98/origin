@@ -105,7 +105,6 @@
   <ItemGroup>
     <ClInclude Include="Race.h" />
     <ClInclude Include="Vehicles.h" />
-    <ClInclude Include="Race_info.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

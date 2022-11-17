@@ -1,77 +1,84 @@
 #pragma once
 #include <iostream>
 
+#ifdef Vehicles_EXPORTS
+#define VEHICLESLIBRARY_API __declspec(dllexport)
+#else
+#define VEHICLESLIBRARY_API __declspec(dllimport)
+#endif
+
 class Vehicle {
 public:
-	Vehicle();
-	float get_time();
-	std::string get_name();
-	bool get_status();
-	void change_status(int race_type);
+	VEHICLESLIBRARY_API Vehicle();
+	VEHICLESLIBRARY_API float get_time();
+	VEHICLESLIBRARY_API std::string get_name();
+	VEHICLESLIBRARY_API bool get_status();
+	VEHICLESLIBRARY_API void change_status(std::string race_type);
 protected:
+	bool check_status(std::string race_type);
 	float time;
 	std::string name;
 	int speed;
 	bool status;	//в игре или нет
-	int type;		//тип ТС назменый воздушный и тд
+	std::string type;		//тип ТС назменый воздушный и тд
 };
 
 class Ground_vehicle : public Vehicle {
 public:
-	Ground_vehicle();
+	VEHICLESLIBRARY_API Ground_vehicle();
 };
 
 class Camal : public Ground_vehicle {
 public:
-	Camal(const float L);
+	VEHICLESLIBRARY_API Camal(const float lenth, std::string race_type);
 private:
-	float calc_time(const float L) ;
+	float calc_time(const float lenth, std::string race_type) ;
 };
 
 class Camal_fast : public Ground_vehicle {
 public:
-	Camal_fast(const float L);
+	VEHICLESLIBRARY_API Camal_fast(const float lenth, std::string race_type);
 private:
-	float calc_time(const float L) ;
+	float calc_time(const float lenth, std::string race_type) ;
 
 };
 
 class Kent : public Ground_vehicle {
 public:
-	Kent(const float L);
+	VEHICLESLIBRARY_API Kent(const float lenth, std::string race_type);
 private:
-	float calc_time(const float L) ;
+	float calc_time(const float lenth, std::string race_type) ;
 };
 
 class Boots_fast : public Ground_vehicle {
 public:
-	Boots_fast(const float L);
+	VEHICLESLIBRARY_API Boots_fast(const float lenth, std::string race_type);
 private:
-	float calc_time(const float L) ;
+	float calc_time(const float lenth, std::string race_type) ;
 };
 
 class Air_vehicle : public Vehicle {
 public:
-	Air_vehicle();
+	VEHICLESLIBRARY_API Air_vehicle();
 };
 
 class Magic_carpet : public Air_vehicle {
 public:
-	Magic_carpet(const float L);
+	VEHICLESLIBRARY_API Magic_carpet(const float lenth, std::string race_type);
 private:
-	float calc_time(const float L) ;
+	float calc_time(const float lenth, std::string race_type) ;
 };
 
 class Eagle : public Air_vehicle {
 public:
-	Eagle(const float L);
+	VEHICLESLIBRARY_API Eagle(const float lenth, std::string race_type);
 private:
-	float calc_time(const float L) ;
+	float calc_time(const float lenth, std::string race_type) ;
 };
 
 class Broom : public Air_vehicle {
 public:
-	Broom(const float L);
+	VEHICLESLIBRARY_API Broom(const float lenth, std::string race_type);
 private:
-	float calc_time(const float L) ;
+	float calc_time(const float lenth, std::string race_type) ;
 };
